@@ -8,7 +8,7 @@ import {CarouselItem} from '../../../carouselItem';
 import {carouselItems} from '../../../carouselItems';
 
 
-import {from, Observable } from 'rxjs';
+import {of, Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 
 @Component({
@@ -20,13 +20,15 @@ export class CarouselComponent implements OnInit{
 
   private selectedSlideIndex = 0;
   private translateX = 0;
-  carouselItems$!: Observable<CarouselItem>;
+  carouselItems$!: Observable<CarouselItem[]>;
+  carouselLength!: number;
 
   @ViewChild('cardsContainer')
   private containerElement!: ElementRef<HTMLElement>;
 
   ngOnInit() {
-    this.carouselItems$ = from(carouselItems);
+    this.carouselItems$ = of(carouselItems);
+    of(carouselItems).subscribe((val: CarouselItem[]) => this.carouselLength = val.length );
   }
 
   moveLeft(): void {
@@ -50,9 +52,10 @@ export class CarouselComponent implements OnInit{
   }
 
   private get showsNotLastSlide(): boolean {
-    return this.selectedSlideIndex !== this.carouselItems$.length - 1;
+    return this.selectedSlideIndex !== this.carouselLength - 1;
   }
   private get showsNotFirstSlide(): boolean {
     return this.selectedSlideIndex !== 0;
   }
+
 }
