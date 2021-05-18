@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="styled-button"
+  [ngClass]="{
+    primary: color === 'primary',
+    action: color === 'action',
+    danger: color === 'danger'
+  }"
+>
+  {{ text }}
+</button>

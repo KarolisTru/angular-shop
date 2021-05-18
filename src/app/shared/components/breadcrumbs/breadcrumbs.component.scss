@@ -1,0 +1,21 @@
+.breadcrumbs-navbar ul {
+    width: 50%;
+    margin: 15px auto 45px auto;
+    display: flex;
+    justify-content: space-evenly;
+    list-style-type: none;
+    padding-bottom: 7px;
+  }
+
+  .breadcrumbs-navbar ul li {
+    border-bottom: 2px solid rgba(172, 172, 235, 0.712);
+    font-weight: bold;
+  }
+
+  .breadcrumbs-navbar ul li:hover {
+    border-bottom: 2px solid rgba(190, 89, 128, 0.712);
+  }
+
+  .breadcrumbs-navbar ul li a{
+    color: rgba(190, 89, 128, 0.712);
+  }
