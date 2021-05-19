@@ -1,61 +1,63 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import {CarouselItem} from '../../../carouselItem';
-import {carouselItems} from '../../../carouselItems';
-
-
-import {of, Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { Component, ElementRef, ViewChild, Input } from '@angular/core';
+import { CarouselItem } from '../../../carouselItem';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
-export class CarouselComponent implements OnInit{
+export class CarouselComponent {
+  private activeIndex = 0;
 
-  private selectedSlideIndex = 0;
-  private translateX = 0;
-  carouselItems$!: Observable<CarouselItem[]>;
-  carouselLength!: number;
+  @Input() items!: CarouselItem[];
 
   @ViewChild('cardsContainer')
   private containerElement!: ElementRef<HTMLElement>;
 
-  ngOnInit() {
-    this.carouselItems$ = of(carouselItems);
-    of(carouselItems).subscribe((val: CarouselItem[]) => this.carouselLength = val.length );
-  }
-
   moveLeft(): void {
-    if (this.showsNotFirstSlide) {
-      this.translateX += this.slideWidth;
-      this.containerElement.nativeElement.style.transform = `translateX(${this.translateX}px)`;
-      this.selectedSlideIndex--;
+    if (!this.isFirstSlideActive) {
+      this.showPreviousSlide();
     }
   }
 
   moveRight(): void {
-    if (this.showsNotLastSlide) {
-      this.translateX -= this.slideWidth;
-      this.containerElement.nativeElement.style.transform = `translateX(${this.translateX}px)`;
-      this.selectedSlideIndex++;
+    if (!this.isLastSlideActive) {
+      this.showNextSlide();
     }
   }
 
-  private get slideWidth(): number {
+  private showNextSlide(): void {
+    this.containerElement.nativeElement.style.transform = `translateX(${this.nextTranslateXValue}px)`;
+    this.activeIndex++;
+  }
+
+  private showPreviousSlide(): void {
+    this.containerElement.nativeElement.style.transform = `translateX(${this.previousTranslateXValue}px)`;
+    this.activeIndex--;
+  }
+
+  private get sliderWidth(): number {
     return this.containerElement.nativeElement.offsetWidth;
   }
-
-  private get showsNotLastSlide(): boolean {
-    return this.selectedSlideIndex !== this.carouselLength - 1;
+  private get carouselLength(): number {
+    return this.items.length;
   }
-  private get showsNotFirstSlide(): boolean {
-    return this.selectedSlideIndex !== 0;
+  private get isLastSlideActive(): boolean {
+    return this.activeIndex === this.carouselLength - 1;
   }
-
+  private get isFirstSlideActive(): boolean {
+    return this.activeIndex === 0;
+  }
+  private get nextTranslateXValue(): number {
+    return this.sliderWidth * -this.nextSlideIndex;
+  }
+  private get previousTranslateXValue(): number {
+    return this.sliderWidth * -this.previousSlideIndex;
+  }
+  private get nextSlideIndex(): number {
+    return this.activeIndex + 1;
+  }
+  private get previousSlideIndex(): number {
+    return this.activeIndex - 1;
+  }
 }
