@@ -1,22 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {CarouselItem} from './carouselItem';
-import {Observable } from 'rxjs';
-import {CarouselService} from '../app/core/carousel.service';
-
+import { Component } from '@angular/core';
+import { CarouselService } from '../app/core/carousel.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
 
-  carouselItems$!: Observable<CarouselItem[]>;
+  carouselItems$ = this.carouselService.getCarouselItems();
 
   constructor(private carouselService: CarouselService) {}
-
-  ngOnInit() {
-    this.carouselItems$ = this.carouselService.getCarouselItems();
-  }
 
 }

@@ -8,5 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ButtonComponent{
 
   @Input() text = "";
-  @Input() color = 'primary';
+  @Input() color: 'isPrimary' | 'isDanger' | 'isAction' = 'isPrimary'
+
 }

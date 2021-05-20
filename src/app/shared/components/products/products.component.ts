@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import {ProductsService} from '../../../../app/core/products.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent{
 
-  constructor() { }
+  products$ = this.productsService.getAllProducts();
+  isAddProductModalOpen: boolean = false;
 
-  ngOnInit(): void {
-  }
+  constructor(private productsService: ProductsService ) {}
 
 }

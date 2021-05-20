@@ -1,39 +1,39 @@
 .main-nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: aliceblue;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-  }
-  
-  .logo {
-    width: 30px;
-    height: 30px;
-    margin-left: 15px;
-  }
-  .shop-name {
-    position: absolute;
-    left: 60px;
-    font-size: 20px;
-    margin-right: 90px;
-    color: rgba(133, 133, 233, 0.712)
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aliceblue;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
 
-  ul {
-    display: flex
-  }
-  
-  #site-search-desktop {
-    height: 30px;
-  }
-  
-  .main-navbar li {
-    list-style-type: none;
-    margin-right: 10px;
-  }
+.logo {
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
+}
+.shop-name {
+  position: absolute;
+  left: 60px;
+  font-size: 20px;
+  margin-right: 90px;
+  color: rgba(133, 133, 233, 0.712);
+}
 
-  .styled-button--primary {
-    background-color:rgba(172, 172, 235, 0.712);
-  }
+ul {
+  display: flex;
+}
+
+.site-search-desktop {
+  height: 30px;
+}
+
+.main-navbar li {
+  list-style-type: none;
+  margin-right: 10px;
+}
+
+.styled-button--primary {
+  background-color: rgba(172, 172, 235, 0.712);
+}

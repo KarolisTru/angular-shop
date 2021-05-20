@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, Input } from '@angular/core';
-import { CarouselItem } from '../../../carouselItem';
+import { CarouselItem } from '../../../carousel-item.interface';
 
 @Component({
   selector: 'app-carousel',
@@ -9,55 +9,39 @@ import { CarouselItem } from '../../../carouselItem';
 export class CarouselComponent {
   private activeIndex = 0;
 
-  @Input() items!: CarouselItem[];
+  @Input() items: CarouselItem[] = [];
 
   @ViewChild('cardsContainer')
   private containerElement!: ElementRef<HTMLElement>;
 
+  trackByFn(index: number, item: any): number {
+    return index;
+  }
+
   moveLeft(): void {
     if (!this.isFirstSlideActive) {
-      this.showPreviousSlide();
+      this.activeIndex--;
     }
   }
 
   moveRight(): void {
     if (!this.isLastSlideActive) {
-      this.showNextSlide();
+      this.activeIndex++;
     }
-  }
-
-  private showNextSlide(): void {
-    this.containerElement.nativeElement.style.transform = `translateX(${this.nextTranslateXValue}px)`;
-    this.activeIndex++;
-  }
-
-  private showPreviousSlide(): void {
-    this.containerElement.nativeElement.style.transform = `translateX(${this.previousTranslateXValue}px)`;
-    this.activeIndex--;
   }
 
   private get sliderWidth(): number {
     return this.containerElement.nativeElement.offsetWidth;
   }
-  private get carouselLength(): number {
-    return this.items.length;
-  }
   private get isLastSlideActive(): boolean {
-    return this.activeIndex === this.carouselLength - 1;
+    return this.activeIndex === this.items.length - 1;
   }
   private get isFirstSlideActive(): boolean {
     return this.activeIndex === 0;
   }
-  private get nextTranslateXValue(): number {
-    return this.sliderWidth * -this.nextSlideIndex;
-  }
-  private get previousTranslateXValue(): number {
-    return this.sliderWidth * -this.previousSlideIndex;
-  }
-  private get nextSlideIndex(): number {
-    return this.activeIndex + 1;
-  }
-  private get previousSlideIndex(): number {
-    return this.activeIndex - 1;
+  get currentTranslateXValue(): string {
+    return this.activeIndex === 0
+      ? `translateX(0px)`
+      : `translateX(${this.sliderWidth * -this.activeIndex}px)`;
   }
 }

@@ -3,5 +3,5 @@ export interface CarouselItem {
     photoUrl: string,
     link: string,
     text: string,
-    priority: string | number
+    priority: number
 }

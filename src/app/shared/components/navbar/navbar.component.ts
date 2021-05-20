@@ -6,9 +6,4 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-
-  constructor() { }
-
-  buttonText = 'Login';
-  loginButton = 'primary';
 }

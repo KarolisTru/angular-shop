@@ -18,7 +18,7 @@ export class ProductsService {
       .get<Product[]>(this.getProductsUrl)
       .pipe(catchError(this.handleError<Product[]>([])));
   }
-  
+
   private handleError<T>(result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

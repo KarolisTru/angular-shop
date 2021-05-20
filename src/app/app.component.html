@@ -2,6 +2,7 @@
 <app-carousel *ngIf="carouselItems$ | async as items; else loader" [items]="items"></app-carousel>
 <ng-template #loader>
     <p class="loading-block">Loading...</p>
-  </ng-template>
+</ng-template>
+<app-products></app-products>
 <router-outlet></router-outlet>
   
