@@ -1,15 +1,19 @@
 <article class="carousel">
   <h2>Customer's choice</h2>
   <div class="carousel-container">
-    <button type="button" class="icon-button" id="previous" (click)="moveLeft()">
+    <button
+      type="button"
+      class="icon-button"
+      id="previous"
+      (click)="moveLeft()"
+    >
       prev
-  </button>
+    </button>
 
     <div #cardsContainer class="cards-container">
       <section
-        *ngFor="let item of carouselItems; let i = index"
-        [ngClass]="'product-card-carousel'
-"
+        *ngFor="let item of items; let i = index"
+        [ngClass]="'product-card-carousel'"
       >
         <a [href]="item.link">
           <div class="carousel-img-container">
@@ -26,6 +30,6 @@
 
     <button type="button" class="icon-button" id="next" (click)="moveRight()">
       next
-  </button>
+    </button>
   </div>
 </article>

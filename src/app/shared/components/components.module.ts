@@ -6,7 +6,7 @@ import { ButtonComponent } from './button/button.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
-import { DirectivesModule } from '../directives/directives.module';
+import { ProductsComponent } from './products/products.component';
 
 
 
@@ -17,11 +17,11 @@ import { DirectivesModule } from '../directives/directives.module';
     ButtonComponent,
     BreadcrumbsComponent,
     CarouselComponent,
-    IconButtonComponent
+    IconButtonComponent,
+    ProductsComponent
   ],
   imports: [
     CommonModule,
-    DirectivesModule
   ], 
   exports: [
     NavbarComponent,
