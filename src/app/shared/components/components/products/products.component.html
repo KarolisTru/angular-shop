@@ -1,6 +1,26 @@
-<article class="product-list">
+<article *ngIf="products.length !== 0; else loader" class="product-list">
   <h2>Products</h2>
-  <div class="btn-container">
+  <app-modal
+    *ngIf="isDeleteProductModalOpen"
+    [productToDelete]="productInModal"
+    (closeDeleteModalEvent)="closeDeleteModal()"
+    (deleteProductEvent)="deleteProduct($event)"
+  >
+  </app-modal>
+
+  <div class="product-list-container">
+    <app-product-card
+      *ngFor="let product of products; trackBy: trackByFn"
+      [product]="product"
+      (openDeleteModalEvent)="openDeleteModal($event)"
+    ></app-product-card>
+  </div>
+</article>
+
+<ng-template #loader>
+  <p class="loading-block">Loading...</p>
+</ng-template>
+<!-- <div class="btn-container">
     <button (click)="isAddProductModalOpen = true" type="button">
       Add New Product
     </button>
@@ -59,17 +79,7 @@
         Add Product
       </button>
     </form>
-  </app-modal>
-
-  <app-product-card
-    *ngIf="products$ | async as products; else loader"
-    [products]="products"
-    class="product-list-container"
-  ></app-product-card>
-  <ng-template #loader>
-    <p class="loading-block">Loading...</p>
-  </ng-template>
-</article>
+  </app-modal> -->
 
 <!-- <div class="modal" id="edit-product-modal">
       <div class="modal-content">

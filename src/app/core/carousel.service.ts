@@ -9,7 +9,7 @@ import { CarouselItem } from '../carousel-item.interface';
 })
 export class CarouselService {
   
-  private readonly getCarouselUrl = '/carousel';
+  private readonly getCarouselUrl = '/api/carousel';
 
   constructor(private http: HttpClient) {}
 

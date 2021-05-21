@@ -1,7 +1,4 @@
-<section
-  *ngFor="let product of products; trackBy: trackByFn"
-  class="product-card-regular"
->
+<section class="product-card-regular">
   <div class="img-container-regular">
     <img [src]="product.photoUrl" [alt]="product.name" />
   </div>
@@ -18,6 +15,7 @@
       <a [href]="product.url" class="stretched-link">See Product</a>
     </button>
     <button
+      (click)="openDeleteModal(product)"
       type="button"
       class="icon-button icon-button--danger delete delete-modal-opener"
     >

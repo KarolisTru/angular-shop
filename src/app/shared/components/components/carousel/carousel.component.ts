@@ -1,5 +1,12 @@
-import { Component, ElementRef, ViewChild, Input } from '@angular/core';
-import { CarouselItem } from '../../../carousel-item.interface';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  Input,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { CarouselItem } from '../../../../carousel-item.interface';
 
 @Component({
   selector: 'app-carousel',

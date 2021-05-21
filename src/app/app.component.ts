@@ -8,8 +8,4 @@ import { CarouselService } from '../app/core/carousel.service';
 })
 export class AppComponent {
 
-  carouselItems$ = this.carouselService.getCarouselItems();
-
-  constructor(private carouselService: CarouselService) {}
-
 }
