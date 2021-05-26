@@ -12,16 +12,16 @@ export class ModalComponent{
   constructor(private productsService: ProductsService) { }
 
   @Input() productToDelete!: Product;
-  @Output() closeDeleteModalEvent = new EventEmitter();
-  @Output() deleteProductEvent = new EventEmitter<Product>();
+  @Output() onCloseDeleteModalEvent = new EventEmitter();
+  @Output() onDeleteProductEvent = new EventEmitter<Product>();
 
   closeDeleteModal() {
-    this.closeDeleteModalEvent.emit();
+    this.onCloseDeleteModalEvent.emit();
   }
 
   deleteProduct() {
     this.productsService.deleteProduct(this.productToDelete.id).subscribe(() => {
-       this.deleteProductEvent.emit(this.productToDelete);
+       this.onDeleteProductEvent.emit(this.productToDelete);
     })
   }
 

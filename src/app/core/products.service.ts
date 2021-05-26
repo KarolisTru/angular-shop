@@ -26,6 +26,14 @@ export class ProductsService {
     return this.http.delete(`${this.getProductsUrl}/${id}`);
   }
 
+  addProduct(productData: Product): Observable<Product> {
+    return this.http.post<Product>(this.getProductsUrl, productData);
+  }
+
+  updateProduct(id: number, productData: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.getProductsUrl}/${id}`, productData);
+  }
+
   private handleError<T>(result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

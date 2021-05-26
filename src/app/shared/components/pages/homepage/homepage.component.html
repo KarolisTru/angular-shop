@@ -5,4 +5,7 @@
 <ng-template #loader>
   <p class="loading-block">Loading...</p>
 </ng-template>
-<app-products></app-products>
+<app-products
+  *ngIf="products$ | async as products"
+  [products]="products"
+></app-products>

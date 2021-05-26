@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ProductsService } from '../../../../core/products.service';
 import { Product } from '../../../../product.interface';
 import { first } from 'rxjs/operators';
@@ -9,35 +9,39 @@ import { first } from 'rxjs/operators';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit{
-  products: any[] = [];
+export class ProductsComponent {
+  @Input() products: any[] = [];
   productInModal!: Product;
 
-  products$ = this.productsService.getAllProducts();
   isAddProductModalOpen: boolean = false;
   isDeleteProductModalOpen: boolean = false;
-
-  constructor(private productsService: ProductsService) {}
-
-  ngOnInit() {
-    this.products$.pipe(first()).subscribe(data => this.products = data);
-  }
 
   trackByFn(index: number, item: any): number {
     return index;
   }
 
-  openDeleteModal(product: Product) {
+  openDeleteModal(product: Product): void {
     this.productInModal = product;
     this.isDeleteProductModalOpen = true;
   }
-  closeDeleteModal() {
+
+  openAddProductModal():void {
+    this.isAddProductModalOpen = true;
+  } 
+
+  closeDeleteModal(): void {
     this.isDeleteProductModalOpen = false;
   }
+  closeAddProductModal():void {
+    this.isAddProductModalOpen = false;
+  } 
 
-  deleteProduct(deletedProd: Product) {
+  deleteProduct(deletedProd: Product): void {
     this.products = this.products.filter(product => deletedProd.id !== product.id);
     this.closeDeleteModal();
-
+  }
+  addProduct(newProduct: Product): void {
+    this.products.push(newProduct);
+    this.closeAddProductModal();
   }
 }

@@ -12,6 +12,9 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 import { RouterModule } from '@angular/router';
+import { AddProductModalComponent } from './components/add-product-modal/add-product-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -28,10 +31,12 @@ import { RouterModule } from '@angular/router';
     HomepageComponent,
     ProductPageComponent,
     ProductDetailsComponent,
+    AddProductModalComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ], 
   exports: [
     NavbarComponent,

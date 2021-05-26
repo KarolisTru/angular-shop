@@ -9,9 +9,9 @@ import {Product} from '../../../../product.interface';
 export class ProductCardComponent {
 
   @Input() product!: Product;
-  @Output() openDeleteModalEvent = new EventEmitter<Product>();
+  @Output() onOpenDeleteModalEvent = new EventEmitter<Product>();
 
   openDeleteModal(product: Product) {
-    this.openDeleteModalEvent.emit(product);
+    this.onOpenDeleteModalEvent.emit(product);
   }
 }
