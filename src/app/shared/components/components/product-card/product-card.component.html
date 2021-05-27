@@ -3,10 +3,7 @@
     <img [src]="product.photoUrl" [alt]="product.name" />
   </div>
   <div class="data-container">
-    <button
-      type="button"
-      class="icon-button icon-button--primary edit edit-modal-opener"
-    >
+    <button type="button" class="edit" (click)="openEditProductModal(product)">
       Edit
     </button>
     <h3 class="product-name-regular">{{ product.name }}</h3>
@@ -14,11 +11,7 @@
     <button class="cta-button" type="button">
       <a [href]="product.url" class="stretched-link">See Product</a>
     </button>
-    <button
-      (click)="openDeleteModal(product)"
-      type="button"
-      class="icon-button icon-button--danger delete delete-modal-opener"
-    >
+    <button (click)="openDeleteModal(product)" type="button" class="delete">
       Delete
     </button>
   </div>

@@ -3,7 +3,7 @@ export interface Product {
     photoUrl?: string,
     price: number,
     url: string,
-    description?: string,
+    productDescription?: string,
     flagged: boolean,
     id: number
 }

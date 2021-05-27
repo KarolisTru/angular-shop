@@ -6,25 +6,33 @@
     </button>
   </div>
 
-  <app-modal
+  <app-delete-modal
     *ngIf="isDeleteProductModalOpen"
     [productToDelete]="productInModal"
     (onCloseDeleteModalEvent)="closeDeleteModal()"
     (onDeleteProductEvent)="deleteProduct($event)"
   >
-  </app-modal>
+  </app-delete-modal>
   <app-add-product-modal
     *ngIf="isAddProductModalOpen"
     (onCloseAddProductModalEvent)="closeAddProductModal()"
     (onAddProductEvent)="addProduct($event)"
   >
   </app-add-product-modal>
+  <app-edit-product-modal
+    *ngIf="isEditProductModalOpen"
+    [productToUpdate]="productInModal"
+    (onCloseEditProductModalEvent)="closeEditModal()"
+    (onEditProductEvent)="editProduct($event)"
+  >
+  </app-edit-product-modal>
 
   <div class="product-cards-container">
     <app-product-card
       *ngFor="let product of products; trackBy: trackByFn"
       [product]="product"
       (onOpenDeleteModalEvent)="openDeleteModal($event)"
+      (onOpenEditModalEvent)="openEditProductModal($event)"
     ></app-product-card>
   </div>
 </article>

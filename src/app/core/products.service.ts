@@ -9,6 +9,7 @@ import { Product } from '../product.interface';
 })
 export class ProductsService {
   private readonly getProductsUrl = '/api/products';
+  isLoading: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -18,20 +19,25 @@ export class ProductsService {
       .pipe(catchError(this.handleError<Product[]>([])));
   }
 
-  getOneProduct(id: string): Observable<Product> {
-    return this.http.get<Product>(`${this.getProductsUrl}/${id}`);
-  }
-
   deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`${this.getProductsUrl}/${id}`);
+    this.isLoading = true;
+    return this.http
+      .delete(`${this.getProductsUrl}/${id}`)
+      .pipe(catchError(this.handleError()));
   }
 
   addProduct(productData: Product): Observable<Product> {
-    return this.http.post<Product>(this.getProductsUrl, productData);
+    this.isLoading = true;
+    return this.http
+      .post<Product>(this.getProductsUrl, productData)
+      .pipe(catchError(this.handleError<any>({})));
   }
 
   updateProduct(id: number, productData: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.getProductsUrl}/${id}`, productData);
+    this.isLoading = true;
+    return this.http
+      .put<Product>(`${this.getProductsUrl}/${id}`, productData)
+      .pipe(catchError(this.handleError<any>({})));
   }
 
   private handleError<T>(result?: T) {
