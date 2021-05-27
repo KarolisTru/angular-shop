@@ -1,7 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductsService } from '../../../../core/products.service';
 import { Product } from '../../../../product.interface';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -64,12 +63,12 @@ export class ProductsComponent {
     this.productsService
       .updateProduct(this.productInModal.id, editedProductData)
       .subscribe((data) => {
-        this.replaceProductInDOM(data);
+        this.replaceProduct(data);
         this.productsService.isLoading = false;
         this.closeEditModal();
       });
   }
-  replaceProductInDOM(updatedProductData: Product) {
+  replaceProduct(updatedProductData: Product) {
     const indexToReplace = this.products.findIndex(
       (prod) => prod.id === updatedProductData.id
     );

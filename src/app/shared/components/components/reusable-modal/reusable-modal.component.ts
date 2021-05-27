@@ -7,9 +7,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class ReusableModalComponent{
 
-  @Output() onModalCloseEvent = new EventEmitter();
+  @Output() modalClose = new EventEmitter();
 
   closeModal() {
-    this.onModalCloseEvent.emit();
+    this.modalClose.emit();
   }
 }

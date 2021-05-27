@@ -1,8 +1,4 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
 import { ProductsService } from 'src/app/core/products.service';
 import { Product } from '../../../../product.interface';
 
@@ -13,37 +9,19 @@ import { Product } from '../../../../product.interface';
 })
 export class AddProductModalComponent {
 
-  private numberRegEx = /^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$/;
-
-  addProductForm = this.fb.group({
-    name: ['', Validators.required],
-    photoUrl: [''],
-    price: [
-      0,
-      Validators.compose([
-        Validators.pattern(this.numberRegEx),
-        Validators.required,
-        Validators.min(0.01),
-      ]),
-    ],
-    productDescription: [''],
-    flagged: [false],
-  });
-
-  @Output() onCloseAddProductModalEvent = new EventEmitter();
-  @Output() onAddProductEvent = new EventEmitter<Product>();
+  @Output() closeAddProductModal = new EventEmitter();
+  @Output() addProduct = new EventEmitter<Product>();
 
   constructor(
-    private fb: FormBuilder,
-    public productsService: ProductsService
+    public productsService: ProductsService,
   ) {}
 
-  onSubmit() {
-    this.onAddProductEvent.emit(this.addProductForm.value);
-  }
+   addNewProduct(productData: Product) {
+     this.addProduct.emit(productData);
+   }
   
-  closeAddProductModal(): void {
-    this.onCloseAddProductModalEvent.emit();
+  closeAddModal(): void {
+    this.closeAddProductModal.emit();
   }
 
 }

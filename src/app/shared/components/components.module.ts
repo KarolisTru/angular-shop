@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditProductModalComponent } from './components/edit-product-modal/edit-product-modal.component';
 import { ReusableModalComponent } from './components/reusable-modal/reusable-modal.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 
 
@@ -36,6 +37,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     EditProductModalComponent,
     ReusableModalComponent,
     LoadingSpinnerComponent,
+    ProductFormComponent,
   ],
   imports: [
     CommonModule,

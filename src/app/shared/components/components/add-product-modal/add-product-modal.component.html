@@ -1,58 +1,12 @@
-<div class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button (click)="closeAddProductModal()" type="button">Exit</button>
-    </div>
-    <div
-      *ngIf="!productsService.isLoading; else loadingSpinner"
-      class="modal-body modal-body--withForm"
-    >
-      <p>Please fill data below</p>
-      <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
-        <div class="form-control">
-          <label for="product-name-add">Product Name:</label>
-          <input formControlName="name" type="text" id="product-name-add" />
-        </div>
-        <div class="form-control">
-          <label for="photo-url-add">Photo Url:</label>
-          <input formControlName="photoUrl" type="url" id="photo-url-add" />
-        </div>
-        <div class="form-control">
-          <label for="product-price-add">Price:</label>
-          <input
-            formControlName="price"
-            type="number"
-            id="product-price-add"
-            step="0.01"
-          />
-        </div>
-        <div class="form-control">
-          <label for="product-description-add">Description:</label>
-          <textarea
-            formControlName="productDescription"
-            id="product-description-add"
-            rows="4"
-          ></textarea>
-        </div>
-        <fieldset class="form-control">
-          <legend>Display in Carousel?</legend>
-          <div>
-            <input
-              formControlName="flagged"
-              type="checkbox"
-              id="display-in-carousel-add"
-              value="true"
-            />
-            <label for="display-in-carousel-add">Yes</label>
-          </div>
-        </fieldset>
-        <button [disabled]="!addProductForm.valid" type="submit">
-          Add Product
-        </button>
-      </form>
-    </div>
-    <ng-template #loadingSpinner>
-      <app-loading-spinner></app-loading-spinner>
-    </ng-template>
+<app-reusable-modal (modalClose)="closeAddModal()">
+  <div
+    *ngIf="!productsService.isLoading; else loadingSpinner"
+    class="modal-body modal-body--withForm"
+  >
+    <p>Please fill data below</p>
+    <app-product-form (setProduct)="addNewProduct($event)"></app-product-form>
   </div>
-</div>
+  <ng-template #loadingSpinner>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+</app-reusable-modal>

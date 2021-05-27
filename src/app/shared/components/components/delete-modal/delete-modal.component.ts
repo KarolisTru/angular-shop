@@ -9,16 +9,16 @@ import { Product } from '../../../../product.interface';
 })
 export class DeleteModalComponent {
   @Input() productToDelete!: Product;
-  @Output() onCloseDeleteModalEvent = new EventEmitter();
-  @Output() onDeleteProductEvent = new EventEmitter<Product>();
+  @Output() closeModal = new EventEmitter();
+  @Output() confirmDelete = new EventEmitter<Product>();
 
   constructor(public productsService: ProductsService) {}
 
   closeDeleteModal() {
-    this.onCloseDeleteModalEvent.emit();
+    this.closeModal.emit();
   }
 
   deleteProduct() {
-    this.onDeleteProductEvent.emit(this.productToDelete);
+    this.confirmDelete.emit(this.productToDelete);
   }
 }

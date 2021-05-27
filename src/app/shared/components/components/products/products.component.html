@@ -9,21 +9,21 @@
   <app-delete-modal
     *ngIf="isDeleteProductModalOpen"
     [productToDelete]="productInModal"
-    (onCloseDeleteModalEvent)="closeDeleteModal()"
-    (onDeleteProductEvent)="deleteProduct($event)"
+    (closeModal)="closeDeleteModal()"
+    (confirmDelete)="deleteProduct($event)"
   >
   </app-delete-modal>
   <app-add-product-modal
     *ngIf="isAddProductModalOpen"
-    (onCloseAddProductModalEvent)="closeAddProductModal()"
-    (onAddProductEvent)="addProduct($event)"
+    (closeAddProductModal)="closeAddProductModal()"
+    (addProduct)="addProduct($event)"
   >
   </app-add-product-modal>
   <app-edit-product-modal
     *ngIf="isEditProductModalOpen"
     [productToUpdate]="productInModal"
-    (onCloseEditProductModalEvent)="closeEditModal()"
-    (onEditProductEvent)="editProduct($event)"
+    (closeModal)="closeEditModal()"
+    (editProduct)="editProduct($event)"
   >
   </app-edit-product-modal>
 

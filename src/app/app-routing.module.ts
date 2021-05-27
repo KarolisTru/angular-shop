@@ -5,8 +5,8 @@ import {ProductPageComponent} from './shared/components/pages/product-page/produ
 
 
 const routes: Routes = [
+  {path: '', pathMatch: 'full', component: HomepageComponent},
   {path: 'products/:id', component: ProductPageComponent},
-  {path: '', component: HomepageComponent},
 ];
 
 @NgModule({
