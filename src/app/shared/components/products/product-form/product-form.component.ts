@@ -18,11 +18,7 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.productForm = this.productFormService.generateFormValidation(
-      this.productToUpdate?.name,
-      this.productToUpdate?.photoUrl,
-      this.productToUpdate?.price,
-      this.productToUpdate?.productDescription,
-      this.productToUpdate?.flagged
+      this.productToUpdate
     );
   }
 
