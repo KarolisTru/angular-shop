@@ -1,9 +1,9 @@
 export interface Product {
     name: string,
     photoUrl?: string,
-    price: string,
+    price: number,
     url: string,
-    description?: string,
+    productDescription?: string,
     flagged: boolean,
     id: number
 }

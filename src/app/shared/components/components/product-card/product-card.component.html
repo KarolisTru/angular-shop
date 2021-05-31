@@ -1,0 +1,18 @@
+<section class="product-card-regular">
+  <div class="img-container-regular">
+    <img [src]="product.photoUrl" [alt]="product.name" />
+  </div>
+  <div class="data-container">
+    <button type="button" class="edit" (click)="openEditProductModal(product)">
+      Edit
+    </button>
+    <h3 class="product-name-regular">{{ product.name }}</h3>
+    <p class="price">€ {{ product.price }}</p>
+    <button class="cta-button" type="button">
+      <a [href]="product.url" class="stretched-link">See Product</a>
+    </button>
+    <button (click)="openDeleteModal(product)" type="button" class="delete">
+      Delete
+    </button>
+  </div>
+</section>

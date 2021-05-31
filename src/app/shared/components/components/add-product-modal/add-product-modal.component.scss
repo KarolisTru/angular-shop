@@ -1,0 +1,17 @@
+.modal-body {
+  min-height: 150px;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.modal-body--withForm {
+  width: 100%;
+  text-align: left;
+  min-height: 40vh;
+  margin-top: 20px;
+}
+
+.modal-body--withForm p {
+  text-align: center;
+}

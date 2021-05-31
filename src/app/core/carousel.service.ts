@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CarouselItem } from '../carouselItem';
+import { CarouselItem } from '../carousel-item.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarouselService {
   
-  private readonly getCarouselUrl = '/carousel';
+  private readonly getCarouselUrl = '/api/carousel';
 
-  constructor(private _http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   getCarouselItems(): Observable<CarouselItem[]> {
-    return this._http
+    return this.http
       .get<CarouselItem[]>(this.getCarouselUrl)
       .pipe(catchError(this.handleError<CarouselItem[]>([])));
   }

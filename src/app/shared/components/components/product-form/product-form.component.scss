@@ -1,0 +1,17 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-control {
+  margin-bottom: 15px;
+  width: 90%;
+  margin: 0 auto 15px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+small {
+  color: red;
+}

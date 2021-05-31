@@ -1,31 +1,53 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LinkButtonComponent } from './link-button/link-button.component';
-import { ButtonComponent } from './button/button.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { IconButtonComponent } from './icon-button/icon-button.component';
-import { ProductsComponent } from './products/products.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ButtonComponent } from './components/button/button.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { ProductsComponent } from './components/products/products.component';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+
+import { RouterModule } from '@angular/router';
+import { AddProductModalComponent } from './components/add-product-modal/add-product-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditProductModalComponent } from './components/edit-product-modal/edit-product-modal.component';
+import { ReusableModalComponent } from './components/reusable-modal/reusable-modal.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+
+
 
 
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    LinkButtonComponent,
     ButtonComponent,
     BreadcrumbsComponent,
     CarouselComponent,
-    IconButtonComponent,
-    ProductsComponent
+    ProductsComponent,
+    DeleteModalComponent,
+    ProductCardComponent,
+    HomepageComponent,
+    ProductPageComponent,
+    AddProductModalComponent,
+    EditProductModalComponent,
+    ReusableModalComponent,
+    LoadingSpinnerComponent,
+    ProductFormComponent,
   ],
   imports: [
     CommonModule,
+    RouterModule,
+    ReactiveFormsModule
   ], 
   exports: [
     NavbarComponent,
-    CarouselComponent
+    HomepageComponent,
+    ProductPageComponent,
   ]
 })
 export class ComponentsModule { }

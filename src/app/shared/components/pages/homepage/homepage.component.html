@@ -1,0 +1,11 @@
+<app-carousel
+  *ngIf="carouselItems$ | async as items; else loadingSpinner"
+  [items]="items"
+></app-carousel>
+<ng-template #loadingSpinner>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<app-products
+  *ngIf="products$ | async as products"
+  [products]="products"
+></app-products>
