@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import {priceRegEx} from '../utils/validation';
+import { priceRegEx } from '../utils/validation';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductFormService {
-
   constructor(private fb: FormBuilder) {}
 
-  generateFormValidation(name = '', photoUrl = '', price = 0, productDescription = '', flagged = false) {
+  generateFormValidation(
+    name = '',
+    photoUrl = '',
+    price = 0,
+    productDescription = '',
+    flagged = false
+  ) {
     return this.fb.group({
       name: [name, Validators.required],
       photoUrl: [photoUrl],

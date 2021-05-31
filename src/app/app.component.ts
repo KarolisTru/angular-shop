@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CarouselService } from '../app/core/carousel.service';
 
 @Component({
   selector: 'app-root',

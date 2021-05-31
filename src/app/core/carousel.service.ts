@@ -16,7 +16,7 @@ export class CarouselService {
   getCarouselItems(): Observable<CarouselItem[]> {
     return this.http
       .get<CarouselItem[]>(this.getCarouselUrl)
-      .pipe(catchError(this.handleError<CarouselItem[]>([])));
+      .pipe(catchError(this.handleError([])));
   }
 
   private handleError<T>(result?: T) {
