@@ -9,14 +9,14 @@ import {Product} from '../../../../product.interface';
 export class ProductCardComponent {
 
   @Input() product!: Product;
-  @Output() onOpenDeleteModalEvent = new EventEmitter<Product>();
-  @Output() onOpenEditModalEvent = new EventEmitter<Product>();
+  @Output() openDelete = new EventEmitter<Product>();
+  @Output() openEdit = new EventEmitter<Product>();
 
 
   openDeleteModal(product: Product) {
-    this.onOpenDeleteModalEvent.emit(product);
+    this.openDelete.emit(product);
   }
   openEditProductModal(product: Product) {
-    this.onOpenEditModalEvent.emit(product);
+    this.openEdit.emit(product);
   }
 }

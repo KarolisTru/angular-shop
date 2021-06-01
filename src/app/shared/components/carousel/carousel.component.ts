@@ -35,7 +35,7 @@ export class CarouselComponent {
     }
   }
 
-  private get sliderWidth(): number {
+  get sliderWidth(): number {
     return this.containerElement.nativeElement.offsetWidth;
   }
   private get isLastSlideActive(): boolean {

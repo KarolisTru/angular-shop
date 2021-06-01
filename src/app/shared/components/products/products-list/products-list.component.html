@@ -31,8 +31,8 @@
     <app-product-card
       *ngFor="let product of products; trackBy: trackByFn"
       [product]="product"
-      (onOpenDeleteModalEvent)="openDeleteModal($event)"
-      (onOpenEditModalEvent)="openEditProductModal($event)"
+      (openDelete)="openDeleteModal($event)"
+      (openEdit)="openEditProductModal($event)"
     ></app-product-card>
   </div>
 </article>
