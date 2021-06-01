@@ -50,6 +50,7 @@ describe('CarouselComponent when tested inside host', () => {
   });
 });
 
+
 describe('Carousel Component methods tested in isolation from the parent component', () => {
   let component: CarouselComponent;
   let fixture: ComponentFixture<CarouselComponent>;

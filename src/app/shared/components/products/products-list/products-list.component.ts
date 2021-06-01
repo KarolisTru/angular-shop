@@ -49,13 +49,13 @@ export class ProductsListComponent {
         (product) => deletedProd.id !== product.id
       );
       this.closeDeleteModal();
-    }, (err) => console.error(err));
+    });
   }
   addProduct(newProductData: Product): void {
     this.productsService.addProduct(newProductData).subscribe((data) => {
       this.products.push(data);
       this.closeAddProductModal();
-    }, (err) => console.error(err));
+    });
   }
   editProduct(editedProductData: Product): void {
     this.productsService
@@ -63,7 +63,7 @@ export class ProductsListComponent {
       .subscribe((data) => {
         this.replaceProduct(data);
         this.closeEditModal();
-      }, (err) => console.error(err));
+      });
   }
   replaceProduct(updatedProductData: Product) {
     const indexToReplace = this.products.findIndex(
