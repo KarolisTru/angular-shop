@@ -30,6 +30,7 @@ describe('CarouselComponent when tested inside host', () => {
   let testHost: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let carouselEl: HTMLElement;
+  
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -55,6 +56,11 @@ describe('Carousel Component methods tested in isolation from the parent compone
   let component: CarouselComponent;
   let fixture: ComponentFixture<CarouselComponent>;
   let receivedItemsArr: CarouselItem[];
+  const carousel = {
+    get nativeEl() {
+      return fixture.debugElement.query(By.css('.product-card-carousel')).nativeElement;
+    }
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -86,17 +92,10 @@ describe('Carousel Component methods tested in isolation from the parent compone
     fixture.detectChanges();
   });
 
-  const carousel = {
-    get nativeEl() {
-      return fixture.debugElement.query(By.css('.product-card-carousel')).nativeElement;
-    }
-  };
-
   it('should show the second item once the next button is clicked', () => {
     carousel.nativeEl.style.width = '400px';
     const expectedTranslateX = `translateX(-400px)`;
     component.moveRight();
-    fixture.detectChanges();
     expect(component.currentTranslateXValue).toBe(expectedTranslateX);
   });
 
@@ -105,7 +104,6 @@ describe('Carousel Component methods tested in isolation from the parent compone
     const expectedTranslateX = `translateX(0px)`;
     component.moveRight();
     component.moveLeft();
-    fixture.detectChanges();
     expect(component.currentTranslateXValue).toBe(expectedTranslateX);
   });
 
@@ -114,7 +112,6 @@ describe('Carousel Component methods tested in isolation from the parent compone
     const expectedTranslateX = `translateX(-400px)`;
     component.moveRight();
     component.moveRight();
-    fixture.detectChanges();
     expect(component.currentTranslateXValue).toBe(expectedTranslateX);
   });
 
@@ -123,7 +120,6 @@ describe('Carousel Component methods tested in isolation from the parent compone
     carousel.nativeEl.style.width = '400px';
     const expectedTranslateX = `translateX(0px)`;
     component.moveLeft();
-    fixture.detectChanges();
     expect(component.currentTranslateXValue).toBe(expectedTranslateX);
   });
 });

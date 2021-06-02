@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ProductFormService } from './product-form.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 describe('ProductFormService', () => {
   let productFormService: ProductFormService;
   let productFormServiceSpy: jasmine.SpyObj<FormBuilder>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('FormBuilder', ['group']);
 
     TestBed.configureTestingModule({
-      providers: [ProductFormService, { provide: FormBuilder, useValue: spy }],
+      providers: [ProductFormService, { provide: FormBuilder, useValue: jasmine.createSpyObj('FormBuilder', ['group']) }],
     });
     productFormService = TestBed.inject(ProductFormService);
     productFormServiceSpy = TestBed.inject(

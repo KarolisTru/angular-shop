@@ -6,7 +6,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -98,15 +97,15 @@ describe('ProductsService', () => {
     });
 
     it('should add a product and return it as expectedResult', () => {
-      service.addProduct(expectedResult).subscribe(responseProduct => {
+      service.addProduct(expectedResult).subscribe((responseProduct) => {
         expect(responseProduct).toEqual(expectedResult);
-      })
+      });
 
       const req = httpTestingController.expectOne('/api/products');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual(expectedResult);
       req.flush(expectedResult);
-    })
+    });
   });
 
   describe('updateProduct()', () => {
@@ -121,17 +120,17 @@ describe('ProductsService', () => {
         flagged: true,
         id: 21,
       };
-    })
+    });
 
     it('should update a product and return the updated product as expectedResult', () => {
-      service.updateProduct(21, expectedResult).subscribe(responseProduct => {
+      service.updateProduct(21, expectedResult).subscribe((responseProduct) => {
         expect(responseProduct).toEqual(expectedResult);
-      })
+      });
 
       const req = httpTestingController.expectOne('/api/products/21');
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual(expectedResult);
       req.flush(expectedResult);
-    })
-  })
+    });
+  });
 });

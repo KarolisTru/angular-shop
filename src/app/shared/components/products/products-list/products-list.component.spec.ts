@@ -7,31 +7,23 @@ import {
 import { ProductsService } from 'src/app/core/products.service';
 import { ProductsListComponent } from './products-list.component';
 import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Product } from 'src/app/product.interface';
-import { defer } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { DeleteModalComponent } from '../modals/delete-modal/delete-modal.component';
 import { AddProductModalComponent } from '../modals/add-product-modal/add-product-modal.component';
 import { EditProductModalComponent } from '../modals/edit-product-modal/edit-product-modal.component';
 
-function asyncData<T>(data: T) {
-  return defer(() => Promise.resolve(data));
-}
 
 describe('ProductsListComponent', () => {
   let component: ProductsListComponent;
   let fixture: ComponentFixture<ProductsListComponent>;
-  let productsService: jasmine.SpyObj<ProductsService>;
+  let productsServiceSpy: jasmine.SpyObj<ProductsService>;
   let productList: Product[];
 
   //async await may be a deal-breaker, let's see
   beforeEach(async () => {
-    productsService = jasmine.createSpyObj('ProductsService', [
-      'deleteProduct',
-      'addProduct',
-      'updateProduct',
-    ]);
 
     await TestBed.configureTestingModule({
       declarations: [
@@ -41,8 +33,14 @@ describe('ProductsListComponent', () => {
         AddProductModalComponent,
         EditProductModalComponent,
       ],
-      providers: [{ provide: ProductsService, useValue: productsService }],
+      providers: [{ provide: ProductsService, useValue: jasmine.createSpyObj('ProductsService', [
+        'deleteProduct',
+        'addProduct',
+        'updateProduct',
+      ]) }],
     }).compileComponents();
+
+    productsServiceSpy = TestBed.inject(ProductsService) as jasmine.SpyObj<ProductsService>;
   });
 
   beforeEach(() => {
@@ -86,7 +84,6 @@ describe('ProductsListComponent', () => {
   });
 
   describe('deleteProduct()', () => {
-    let deleteServiceSpy: any;
     let deleteProductObject: Product;
 
     beforeEach(() => {
@@ -99,16 +96,16 @@ describe('ProductsListComponent', () => {
         id: 13,
       };
 
-      deleteServiceSpy = productsService.deleteProduct.and.returnValue(of({}));
-      deleteServiceSpy.and.returnValue(asyncData({}));
+      productsServiceSpy.deleteProduct.and.returnValue(
+        of({}).pipe(delay(1000))
+      );
       fixture.detectChanges();
     });
 
     it('should delete item from the page', fakeAsync(() => {
       component.deleteProduct(deleteProductObject);
-      expect(productsService.deleteProduct).toHaveBeenCalledTimes(1);
-      expect(productsService.deleteProduct.calls.allArgs()).toEqual([[13]]);
-      tick();
+      expect(productsServiceSpy.deleteProduct).toHaveBeenCalledWith(13);
+      tick(1000);
       fixture.detectChanges();
       expect(component.products.length).toEqual(1);
       expect(ui.listEl.textContent).not.toContain('Opapa');
@@ -116,7 +113,6 @@ describe('ProductsListComponent', () => {
   });
 
   describe('addProduct()', () => {
-    let addServiceSpy: any;
     let addProductObject: Product;
 
     beforeEach(() => {
@@ -129,21 +125,16 @@ describe('ProductsListComponent', () => {
         id: 120,
       };
 
-      addServiceSpy = productsService.addProduct.and.returnValue(
-        of(addProductObject)
+      productsServiceSpy.addProduct.and.returnValue(
+        of(addProductObject).pipe(delay(1000))
       );
-      addServiceSpy.and.returnValue(asyncData(addProductObject));
-
       fixture.detectChanges();
     });
 
     it('should add a product to the page', fakeAsync(() => {
       component.addProduct(addProductObject);
-      expect(productsService.addProduct).toHaveBeenCalledTimes(1);
-      expect(productsService.addProduct.calls.allArgs()).toEqual([
-        [addProductObject],
-      ]);
-      tick();
+      expect(productsServiceSpy.addProduct).toHaveBeenCalledWith(addProductObject);
+      tick(1000);
       fixture.detectChanges();
       expect(component.products.length).toEqual(3);
       expect(ui.listEl.textContent).toContain('New Product');
@@ -151,7 +142,6 @@ describe('ProductsListComponent', () => {
   });
 
   describe('editProduct()', () => {
-    let editServiceSpy: any;
     let editProductObject: Product;
 
     beforeEach(() => {
@@ -166,18 +156,17 @@ describe('ProductsListComponent', () => {
 
       component.productInModal = editProductObject;
 
-      editServiceSpy = productsService.updateProduct.and.returnValue(
-        of(editProductObject)
+      productsServiceSpy.updateProduct.and.returnValue(
+        of(editProductObject).pipe(delay(1000))
       );
-      editServiceSpy.and.returnValue(asyncData(editProductObject));
       fixture.detectChanges();
     });
 
     it('should update the product on the page', fakeAsync(() => {
       expect(ui.listEl.textContent).not.toContain('Edited Product');
       component.editProduct(editProductObject);
-      expect(productsService.updateProduct).toHaveBeenCalledTimes(1);
-      tick();
+      expect(productsServiceSpy.updateProduct).toHaveBeenCalledWith(16, editProductObject);
+      tick(1000);
       fixture.detectChanges();
       expect(component.products.length).toEqual(2);
       expect(ui.listEl.textContent).toContain('Edited Product');

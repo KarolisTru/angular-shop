@@ -6,7 +6,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 describe('CarouselService', () => {
   let service: CarouselService;
