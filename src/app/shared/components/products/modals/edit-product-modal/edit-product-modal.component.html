@@ -1,0 +1,15 @@
+<app-modal (modalClose)="closeEditProductModal()">
+  <div
+    *ngIf="!productsService.isLoading; else loadingSpinner"
+    class="modal-body modal-body--withForm"
+  >
+    <p>Please fill data below</p>
+    <app-product-form
+      [productToUpdate]="productToUpdate"
+      (setProduct)="updateProduct($event)"
+    ></app-product-form>
+  </div>
+  <ng-template #loadingSpinner>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
+</app-modal>
