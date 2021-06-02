@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { StoreModule } from '@ngrx/store';
+import { productsReducer } from './state/products/products.reducer';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { StoreModule } from '@ngrx/store';
     PagesModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({products: productsReducer}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
