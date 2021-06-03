@@ -14,30 +14,24 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
-    return this.http
-      .get<Product[]>(this.getProductsUrl)
-      .pipe(catchError(this.handleError<Product[]>([])));
+    return this.http.get<Product[]>(this.getProductsUrl).pipe(catchError(this.handleError<Product[]>([])));
   }
 
   deleteProduct(id: number): Observable<any> {
     this.isLoading = true;
-    return this.http
-      .delete(`${this.getProductsUrl}/${id}`)
-      .pipe(finalize(() => this.isLoading = false ));
+    return this.http.delete(`${this.getProductsUrl}/${id}`).pipe(finalize(() => (this.isLoading = false)));
   }
 
   addProduct(productData: Product): Observable<Product> {
     this.isLoading = true;
-    return this.http
-      .post<Product>(this.getProductsUrl, productData)
-      .pipe(finalize(() => this.isLoading = false ));
+    return this.http.post<Product>(this.getProductsUrl, productData).pipe(finalize(() => (this.isLoading = false)));
   }
 
   updateProduct(id: number, productData: Product): Observable<Product> {
     this.isLoading = true;
     return this.http
       .put<Product>(`${this.getProductsUrl}/${id}`, productData)
-      .pipe(finalize(() => this.isLoading = false ));
+      .pipe(finalize(() => (this.isLoading = false)));
   }
 
   private handleError<T>(result?: T) {

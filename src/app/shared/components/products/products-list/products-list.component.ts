@@ -15,7 +15,7 @@ export class ProductsListComponent {
   isAddProductModalOpen: boolean = false;
   isDeleteProductModalOpen: boolean = false;
 
-  constructor(public productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   trackByFn(index: number, item: any): number {
     return index;
@@ -45,9 +45,7 @@ export class ProductsListComponent {
 
   deleteProduct(deletedProd: Product): void {
     this.productsService.deleteProduct(deletedProd.id).subscribe(() => {
-      this.products = this.products.filter(
-        (product) => deletedProd.id !== product.id
-      );
+      this.products = this.products.filter((product) => deletedProd.id !== product.id);
       this.closeDeleteModal();
     });
   }
@@ -58,17 +56,13 @@ export class ProductsListComponent {
     });
   }
   editProduct(editedProductData: Product): void {
-    this.productsService
-      .updateProduct(this.productInModal.id, editedProductData)
-      .subscribe((data) => {
-        this.replaceProduct(data);
-        this.closeEditModal();
-      });
+    this.productsService.updateProduct(this.productInModal.id, editedProductData).subscribe((data) => {
+      this.replaceProduct(data);
+      this.closeEditModal();
+    });
   }
   replaceProduct(updatedProductData: Product) {
-    const indexToReplace = this.products.findIndex(
-      (prod) => prod.id === updatedProductData.id
-    );
+    const indexToReplace = this.products.findIndex((prod) => prod.id === updatedProductData.id);
     this.products.splice(indexToReplace, 1, updatedProductData);
   }
 }
