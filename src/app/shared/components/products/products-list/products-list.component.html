@@ -1,9 +1,7 @@
 <article class="product-list">
   <h2>Products</h2>
   <div class="btn-container">
-    <button (click)="openAddProductModal()" type="button">
-      Add New Product
-    </button>
+    <button (click)="openAddProductModal()" type="button">Add New Product</button>
   </div>
 
   <app-delete-modal
@@ -13,12 +11,14 @@
     (confirmDelete)="deleteProduct($event)"
   >
   </app-delete-modal>
+
   <app-add-product-modal
     *ngIf="isAddProductModalOpen"
     (closeAddProductModal)="closeAddProductModal()"
     (addProduct)="addProduct($event)"
   >
   </app-add-product-modal>
+
   <app-edit-product-modal
     *ngIf="isEditProductModalOpen"
     [productToUpdate]="productInModal"
@@ -29,7 +29,7 @@
 
   <div class="product-cards-container">
     <app-product-card
-      *ngFor="let product of products; trackBy: trackByFn"
+      *ngFor="let product of products$ | async; trackBy: trackByFn"
       [product]="product"
       (openDelete)="openDeleteModal($event)"
       (openEdit)="openEditProductModal($event)"

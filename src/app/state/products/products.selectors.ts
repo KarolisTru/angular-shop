@@ -8,11 +8,11 @@ export interface ProductsState {
 
 export const selectProductsState = createFeatureSelector<ProductsState>('products');
 
-export const selectProducts = createSelector(selectProductsState, (state: ProductsState) => {
+export const selectProducts = createSelector(selectProductsState, (state) => {
   return state.products;
 });
 
-export const selectLoadingProducts = createSelector(selectProductsState, (state: ProductsState) => {
+export const selectLoadingProducts = createSelector(selectProductsState, (state) => {
   return state.isLoading;
 });
 

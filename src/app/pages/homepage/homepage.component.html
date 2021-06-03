@@ -2,7 +2,4 @@
 <ng-template #loadingSpinner>
   <app-loading-spinner></app-loading-spinner>
 </ng-template>
-<app-products-list
-  *ngIf="!(isProductsLoading$ | async) && (products$ | async) as products"
-  [products]="products"
-></app-products-list>
+<app-products-list *ngIf="!(isProductsLoading$ | async); else loadingSpinner"></app-products-list>

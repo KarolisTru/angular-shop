@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 import { Product } from '../product.interface';
 
 @Injectable({
@@ -19,7 +19,10 @@ export class ProductsService {
 
   deleteProduct(id: number): Observable<any> {
     this.isLoading = true;
-    return this.http.delete(`${this.getProductsUrl}/${id}`).pipe(finalize(() => (this.isLoading = false)));
+    return this.http.delete(`${this.getProductsUrl}/${id}`).pipe(
+      map(() => id),
+      finalize(() => (this.isLoading = false))
+    );
   }
 
   addProduct(productData: Product): Observable<Product> {

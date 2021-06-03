@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { ProductsService } from '../../../../core/products.service';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectProducts } from 'src/app/state/products/products.selectors';
 import { Product } from '../../../../product.interface';
+import * as actions from '../../../../state/products/products.actions';
 
 @Component({
   selector: 'app-products-list',
@@ -8,14 +10,14 @@ import { Product } from '../../../../product.interface';
   styleUrls: ['./products-list.component.scss'],
 })
 export class ProductsListComponent {
-  @Input() products: any[] = [];
+  products$ = this.store.select(selectProducts);
   productInModal!: Product;
 
-  isEditProductModalOpen: boolean = false;
-  isAddProductModalOpen: boolean = false;
-  isDeleteProductModalOpen: boolean = false;
+  isEditProductModalOpen = false;
+  isAddProductModalOpen = false;
+  isDeleteProductModalOpen = false;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private store: Store) {}
 
   trackByFn(index: number, item: any): number {
     return index;
@@ -44,25 +46,14 @@ export class ProductsListComponent {
   }
 
   deleteProduct(deletedProd: Product): void {
-    this.productsService.deleteProduct(deletedProd.id).subscribe(() => {
-      this.products = this.products.filter((product) => deletedProd.id !== product.id);
-      this.closeDeleteModal();
-    });
+    const { id } = deletedProd;
+    this.store.dispatch(actions.deleteProduct({ id }));
   }
-  addProduct(newProductData: Product): void {
-    this.productsService.addProduct(newProductData).subscribe((data) => {
-      this.products.push(data);
-      this.closeAddProductModal();
-    });
+  addProduct(productData: Product): void {
+    this.store.dispatch(actions.addProduct({ productData }));
   }
-  editProduct(editedProductData: Product): void {
-    this.productsService.updateProduct(this.productInModal.id, editedProductData).subscribe((data) => {
-      this.replaceProduct(data);
-      this.closeEditModal();
-    });
-  }
-  replaceProduct(updatedProductData: Product) {
-    const indexToReplace = this.products.findIndex((prod) => prod.id === updatedProductData.id);
-    this.products.splice(indexToReplace, 1, updatedProductData);
+  editProduct(productData: Product): void {
+    const id = this.productInModal.id;
+    this.store.dispatch(actions.editProduct({ id, productData }));
   }
 }

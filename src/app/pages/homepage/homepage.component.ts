@@ -11,7 +11,6 @@ import { ProductsState, selectLoadingProducts, selectProducts } from '../../stat
 })
 export class HomepageComponent {
   carouselItems$ = this.carouselService.getCarouselItems();
-  products$ = this.store.select(selectProducts);
   isProductsLoading$ = this.store.select(selectLoadingProducts);
 
   constructor(private store: Store<ProductsState>, private carouselService: CarouselService) {}
