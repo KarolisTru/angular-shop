@@ -13,6 +13,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductsEffects } from './state/products/products.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { carouselReducer } from './state/carousel/carousel.reducer';
+import { CarouselEffects } from './state/carousel/carousel.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,9 +25,15 @@ import { environment } from '../environments/environment';
     PagesModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({ products: productsReducer }, {}),
-    EffectsModule.forRoot([ProductsEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreModule.forRoot(
+      { products: productsReducer, carousel: carouselReducer },
+      {}
+    ),
+    EffectsModule.forRoot([ProductsEffects, CarouselEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

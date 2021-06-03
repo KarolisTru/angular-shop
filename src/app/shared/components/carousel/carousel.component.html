@@ -11,7 +11,7 @@
       class="cards-container"
     >
       <section
-        *ngFor="let item of items; trackBy: trackByFn"
+        *ngFor="let item of items$ | async; trackBy: trackByFn"
         class="product-card-carousel"
       >
         <a [href]="item.link">
