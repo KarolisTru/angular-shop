@@ -41,6 +41,8 @@ const _productsReducer = createReducer(
     return {
       ...state,
       isLoading: false,
+      activeModal: null,
+      productInModal: null,
     };
   }),
 
@@ -54,7 +56,12 @@ const _productsReducer = createReducer(
       activeModal: null,
     };
   }),
-  on(actions.addProductError, (state) => ({ ...state, isLoading: false })),
+  on(actions.addProductError, (state) => ({
+    ...state,
+    isLoading: false,
+    activeModal: null,
+    productInModal: null,
+  })),
 
   on(actions.editProduct, (state) => ({ ...state, isLoading: true })),
   on(actions.editProductSuccess, (state, { productData }) => {
@@ -70,7 +77,12 @@ const _productsReducer = createReducer(
       activeModal: null,
     };
   }),
-  on(actions.editProductError, (state) => ({ ...state, isLoading: false })),
+  on(actions.editProductError, (state) => ({
+    ...state,
+    isLoading: false,
+    activeModal: null,
+    productInModal: null,
+  })),
   on(actions.openDeleteModal, (state, { modal, productData }) => ({
     ...state,
     activeModal: modal,

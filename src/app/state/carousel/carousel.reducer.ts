@@ -6,7 +6,6 @@ export const initialState: CarouselState = {
   carouselItems: [],
   isLoading: false,
   activeIndex: 0,
-  carouselWidth: 0,
 };
 
 const _carouselReducer = createReducer(

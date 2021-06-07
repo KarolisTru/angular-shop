@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { ProductFormService } from 'src/app/core/product-form.service';
 import { Product } from '../../../../product.interface';
 

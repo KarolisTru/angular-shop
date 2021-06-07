@@ -5,7 +5,6 @@ export interface CarouselState {
   carouselItems: CarouselItem[];
   isLoading: boolean;
   activeIndex: number;
-  carouselWidth: number;
 }
 
 export const selectCarouselState = createFeatureSelector<CarouselState>('carousel');

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as productActions from '../../state/products/products.actions';
 import * as carouselActions from '../../state/carousel/carousel.actions';
-import { selectLoadingProducts } from '../../state/products/products.selectors';
 import { selectLoadingCarousel } from '../../state/carousel/carousel.selectors';
+import * as productActions from '../../state/products/products.actions';
+import { selectLoadingProducts } from '../../state/products/products.selectors';
 
 @Component({
   selector: 'app-homepage',

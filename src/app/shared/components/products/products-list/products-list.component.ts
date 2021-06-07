@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
-import { act } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-  selectOpenModal,
-  selectProductInModal,
-  selectProducts,
-} from 'src/app/state/products/products.selectors';
+import { selectOpenModal, selectProducts } from 'src/app/state/products/products.selectors';
 import { Product } from '../../../../product.interface';
 import * as actions from '../../../../state/products/products.actions';
 
@@ -47,16 +42,8 @@ export class ProductsListComponent {
   openAddProductModal(): void {
     this.store.dispatch(actions.openAddModal({ modal: 'add' }));
   }
+
   openEditProductModal(product: Product): void {
     this.store.dispatch(actions.openEditModal({ modal: 'edit', productData: product }));
   }
-
-  // closeEditModal(): void {
-  //   this.isEditProductModalOpen = false;
-  // }
-
-  // editProduct(productData: Product): void {
-  //   const id = this.productInModal.id;
-  //   this.store.dispatch(actions.editProduct({ id, productData }));
-  // }
 }
