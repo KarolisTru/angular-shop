@@ -1,6 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { ProductsService } from '../../../../core/products.service';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { selectOpenModal, selectProducts } from 'src/app/state/products/products.selectors';
 import { Product } from '../../../../product.interface';
+import * as actions from '../../../../state/products/products.actions';
 
 @Component({
   selector: 'app-products-list',
@@ -8,67 +12,38 @@ import { Product } from '../../../../product.interface';
   styleUrls: ['./products-list.component.scss'],
 })
 export class ProductsListComponent {
-  @Input() products: any[] = [];
-  productInModal!: Product;
+  products$ = this.store.select(selectProducts);
+  openModal$ = this.store.select(selectOpenModal);
+  openModal: 'delete' | 'add' | 'edit' | null = null;
 
-  isEditProductModalOpen: boolean = false;
-  isAddProductModalOpen: boolean = false;
-  isDeleteProductModalOpen: boolean = false;
+  destroy$ = new Subject();
 
-  constructor(public productsService: ProductsService) {}
+  constructor(private store: Store) {}
+
+  ngOnInit() {
+    this.openModal$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((modalIdentifier) => (this.openModal = modalIdentifier));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   trackByFn(index: number, item: any): number {
     return index;
   }
 
   openDeleteModal(product: Product): void {
-    this.productInModal = product;
-    this.isDeleteProductModalOpen = true;
+    this.store.dispatch(actions.openDeleteModal({ modal: 'delete', productData: product }));
   }
+
   openAddProductModal(): void {
-    this.isAddProductModalOpen = true;
+    this.store.dispatch(actions.openAddModal({ modal: 'add' }));
   }
+
   openEditProductModal(product: Product): void {
-    this.productInModal = product;
-    this.isEditProductModalOpen = true;
-  }
-
-  closeDeleteModal(): void {
-    this.isDeleteProductModalOpen = false;
-  }
-  closeAddProductModal(): void {
-    this.isAddProductModalOpen = false;
-  }
-  closeEditModal(): void {
-    this.isEditProductModalOpen = false;
-  }
-
-  deleteProduct(deletedProd: Product): void {
-    this.productsService.deleteProduct(deletedProd.id).subscribe(() => {
-      this.products = this.products.filter(
-        (product) => deletedProd.id !== product.id
-      );
-      this.closeDeleteModal();
-    });
-  }
-  addProduct(newProductData: Product): void {
-    this.productsService.addProduct(newProductData).subscribe((data) => {
-      this.products.push(data);
-      this.closeAddProductModal();
-    });
-  }
-  editProduct(editedProductData: Product): void {
-    this.productsService
-      .updateProduct(this.productInModal.id, editedProductData)
-      .subscribe((data) => {
-        this.replaceProduct(data);
-        this.closeEditModal();
-      });
-  }
-  replaceProduct(updatedProductData: Product) {
-    const indexToReplace = this.products.findIndex(
-      (prod) => prod.id === updatedProductData.id
-    );
-    this.products.splice(indexToReplace, 1, updatedProductData);
+    this.store.dispatch(actions.openEditModal({ modal: 'edit', productData: product }));
   }
 }

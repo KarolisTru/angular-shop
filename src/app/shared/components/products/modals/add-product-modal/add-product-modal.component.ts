@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { ProductsService } from 'src/app/core/products.service';
+import { Store } from '@ngrx/store';
+import * as actions from 'src/app/state/products/products.actions';
 import { Product } from '../../../../../product.interface';
 
 @Component({
@@ -8,20 +9,13 @@ import { Product } from '../../../../../product.interface';
   styleUrls: ['./add-product-modal.component.scss'],
 })
 export class AddProductModalComponent {
+  constructor(private store: Store) {}
 
-  @Output() closeAddProductModal = new EventEmitter();
-  @Output() addProduct = new EventEmitter<Product>();
-
-  constructor(
-    public productsService: ProductsService,
-  ) {}
-
-   addNewProduct(productData: Product) {
-     this.addProduct.emit(productData);
-   }
-  
-  closeAddModal(): void {
-    this.closeAddProductModal.emit();
+  addNewProduct(productData: Product) {
+    this.store.dispatch(actions.addProduct({ productData }));
   }
 
+  closeAddModal(): void {
+    this.store.dispatch(actions.closeAddModal());
+  }
 }

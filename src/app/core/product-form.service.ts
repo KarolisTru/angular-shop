@@ -3,16 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { priceRegEx } from '../utils/validation';
 import { Product } from '../product.interface';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ProductFormService {
   constructor(private fb: FormBuilder) {}
 
-  generateFormValidation(
-    product ?: Product
-  ) {
+  generateFormValidation(product?: Product | null) {
     return this.fb.group({
       name: [product?.name || '', Validators.required],
       photoUrl: [product?.photoUrl || ''],

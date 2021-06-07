@@ -1,6 +1,9 @@
-import { Component, Output, Input, EventEmitter} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ProductsService } from 'src/app/core/products.service';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import * as actions from 'src/app/state/products/products.actions';
+import { selectProductInModal } from 'src/app/state/products/products.selectors';
 import { Product } from '../../../../../product.interface';
 
 @Component({
@@ -9,20 +12,32 @@ import { Product } from '../../../../../product.interface';
   styleUrls: ['./edit-product-modal.component.scss'],
 })
 export class EditProductModalComponent {
-  @Input() productToUpdate!: Product;
-  editProductForm!: FormGroup;
+  productToUpdate$ = this.store.select(selectProductInModal);
+  productToUpdate: Product | null = null;
 
-  @Output() closeModal = new EventEmitter();
-  @Output() editProduct = new EventEmitter<Product>();
+  destroy$ = new Subject();
 
-  constructor(
-    public productsService: ProductsService,
-  ) {}
+  constructor(private store: Store) {}
+
+  ngOnInit() {
+    this.productToUpdate$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((product) => (this.productToUpdate = product));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   updateProduct(productData: Product) {
-    this.editProduct.emit(productData);
+    if (this.productToUpdate) {
+      const { id } = this.productToUpdate;
+      this.store.dispatch(actions.editProduct({ id, productData }));
+    }
   }
+
   closeEditProductModal(): void {
-    this.closeModal.emit();
+    this.store.dispatch(actions.closeEditModal());
   }
 }

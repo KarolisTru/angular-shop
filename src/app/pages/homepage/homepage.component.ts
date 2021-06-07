@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { CarouselService } from '../../core/carousel.service';
-import { ProductsService } from '../../core/products.service';
+import { Store } from '@ngrx/store';
+import * as carouselActions from '../../state/carousel/carousel.actions';
+import { selectLoadingCarousel } from '../../state/carousel/carousel.selectors';
+import * as productActions from '../../state/products/products.actions';
+import { selectLoadingProducts } from '../../state/products/products.selectors';
 
 @Component({
   selector: 'app-homepage',
@@ -8,11 +11,13 @@ import { ProductsService } from '../../core/products.service';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent {
-  carouselItems$ = this.carouselService.getCarouselItems();
-  products$ = this.productsService.getAllProducts();
+  isCarouselLoading$ = this.store.select(selectLoadingCarousel);
+  isProductsLoading$ = this.store.select(selectLoadingProducts);
 
-  constructor(
-    private carouselService: CarouselService,
-    private productsService: ProductsService
-  ) {}
+  constructor(private store: Store) {}
+
+  ngOnInit() {
+    this.store.dispatch(productActions.loadProducts());
+    this.store.dispatch(carouselActions.loadCarousel());
+  }
 }

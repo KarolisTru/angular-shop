@@ -9,7 +9,7 @@ import { Product } from '../../../../product.interface';
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent implements OnInit {
-  @Input() productToUpdate?: Product;
+  @Input() productToUpdate?: Product | null;
   @Output() setProduct = new EventEmitter<Product>();
 
   productForm!: FormGroup;
@@ -17,9 +17,7 @@ export class ProductFormComponent implements OnInit {
   constructor(private productFormService: ProductFormService) {}
 
   ngOnInit(): void {
-    this.productForm = this.productFormService.generateFormValidation(
-      this.productToUpdate
-    );
+    this.productForm = this.productFormService.generateFormValidation(this.productToUpdate);
   }
 
   onSubmit() {

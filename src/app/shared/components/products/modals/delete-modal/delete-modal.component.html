@@ -1,17 +1,9 @@
 <app-modal (modalClose)="closeDeleteModal()">
-  <div
-    *ngIf="!productsService.isLoading; else loadingSpinner"
-    class="modal-body"
-  >
-    <p>
-      Are you sure you want to delete {{ productToDelete.name | titlecase }}?
-    </p>
+  <div class="modal-body">
+    <p>Are you sure you want to delete {{ productToDelete?.name | titlecase }}?</p>
     <div class="modal-btn-container">
       <button (click)="deleteProduct()">Yes</button>
       <button (click)="closeDeleteModal()">No</button>
     </div>
   </div>
-  <ng-template #loadingSpinner>
-    <app-loading-spinner></app-loading-spinner>
-  </ng-template>
 </app-modal>
