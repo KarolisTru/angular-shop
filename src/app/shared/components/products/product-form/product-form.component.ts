@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { ProductFormService } from 'src/app/core/product-form.service';
 import { Product } from '../../../../product.interface';
 
@@ -9,7 +10,7 @@ import { Product } from '../../../../product.interface';
   styleUrls: ['./product-form.component.scss'],
 })
 export class ProductFormComponent implements OnInit {
-  @Input() productToUpdate?: Product;
+  @Input() productToUpdate?: Product | null;
   @Output() setProduct = new EventEmitter<Product>();
 
   productForm!: FormGroup;
@@ -17,9 +18,7 @@ export class ProductFormComponent implements OnInit {
   constructor(private productFormService: ProductFormService) {}
 
   ngOnInit(): void {
-    this.productForm = this.productFormService.generateFormValidation(
-      this.productToUpdate
-    );
+    this.productForm = this.productFormService.generateFormValidation(this.productToUpdate);
   }
 
   onSubmit() {

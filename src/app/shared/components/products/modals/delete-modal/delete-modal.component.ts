@@ -1,5 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ProductsService } from 'src/app/core/products.service';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import * as actions from 'src/app/state/products/products.actions';
+import { selectOpenModal, selectProductInModal } from 'src/app/state/products/products.selectors';
 import { Product } from '../../../../../product.interface';
 
 @Component({
@@ -8,17 +12,32 @@ import { Product } from '../../../../../product.interface';
   styleUrls: ['./delete-modal.component.scss'],
 })
 export class DeleteModalComponent {
-  @Input() productToDelete!: Product;
-  @Output() closeModal = new EventEmitter();
-  @Output() confirmDelete = new EventEmitter<Product>();
+  productToDelete$ = this.store.select(selectProductInModal);
+  productToDelete: Product | null = null;
 
-  constructor(public productsService: ProductsService) {}
+  destroy$ = new Subject();
+
+  constructor(private store: Store) {}
+
+  ngOnInit() {
+    this.productToDelete$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((product) => (this.productToDelete = product));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   closeDeleteModal() {
-    this.closeModal.emit();
+    this.store.dispatch(actions.closeDeleteModal());
   }
 
   deleteProduct() {
-    this.confirmDelete.emit(this.productToDelete);
+    if (this.productToDelete) {
+      const { id } = this.productToDelete;
+      this.store.dispatch(actions.deleteProduct({ id }));
+    }
   }
 }

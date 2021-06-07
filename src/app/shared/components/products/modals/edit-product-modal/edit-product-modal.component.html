@@ -1,8 +1,5 @@
 <app-modal (modalClose)="closeEditProductModal()">
-  <div
-    *ngIf="!productsService.isLoading; else loadingSpinner"
-    class="modal-body modal-body--withForm"
-  >
+  <div class="modal-body modal-body--withForm">
     <p>Please fill data below</p>
     <app-product-form
       [productToUpdate]="productToUpdate"

@@ -24,7 +24,6 @@ export class CarouselEffects {
       )
     )
   );
-
   constructor(
     private actions$: Actions,
     private carouselService: CarouselService

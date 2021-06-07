@@ -21,3 +21,18 @@ export const editProductError = createAction('[Products] Edit Error');
 export const addProduct = createAction('[Products] Add', props<{ productData: Product }>());
 export const addProductSuccess = createAction('[Products] Add Success', props<{ productData: Product }>());
 export const addProductError = createAction('[Products] Add Error');
+
+export const openDeleteModal = createAction(
+  '[Products] Open Delete Modal',
+  props<{ modal: 'delete' | 'add' | 'edit'; productData: Product }>()
+);
+export const closeDeleteModal = createAction('[Products] Close Delete Modal');
+
+export const openEditModal = createAction(
+  '[Products] Open Edit Modal',
+  props<{ modal: 'delete' | 'add' | 'edit'; productData: Product }>()
+);
+export const closeEditModal = createAction('[Products] Close Edit Modal');
+
+export const openAddModal = createAction('[Products] Open Add Modal', props<{ modal: 'delete' | 'add' | 'edit' }>());
+export const closeAddModal = createAction('[Products] Close Add Modal');

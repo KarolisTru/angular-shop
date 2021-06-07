@@ -6,6 +6,8 @@ import * as actions from './products.actions';
 export const initialState: ProductsState = {
   products: [],
   isLoading: false,
+  productInModal: null,
+  activeModal: null,
 };
 
 const _productsReducer = createReducer(
@@ -31,6 +33,8 @@ const _productsReducer = createReducer(
       ...state,
       products: state.products.filter((product) => product.id !== id),
       isLoading: false,
+      activeModal: null,
+      productInModal: null,
     };
   }),
   on(actions.deleteProductError, (state) => {
@@ -46,6 +50,8 @@ const _productsReducer = createReducer(
       ...state,
       products: [...state.products, productData],
       isLoading: false,
+      productInModal: null,
+      activeModal: null,
     };
   }),
   on(actions.addProductError, (state) => ({ ...state, isLoading: false })),
@@ -60,9 +66,25 @@ const _productsReducer = createReducer(
         } else return productData;
       }),
       isLoading: false,
+      productInModal: null,
+      activeModal: null,
     };
   }),
-  on(actions.editProductError, (state) => ({ ...state, isLoading: false }))
+  on(actions.editProductError, (state) => ({ ...state, isLoading: false })),
+  on(actions.openDeleteModal, (state, { modal, productData }) => ({
+    ...state,
+    activeModal: modal,
+    productInModal: productData,
+  })),
+  on(actions.closeDeleteModal, (state) => ({ ...state, activeModal: null, productInModal: null })),
+  on(actions.openEditModal, (state, { modal, productData }) => ({
+    ...state,
+    activeModal: modal,
+    productInModal: productData,
+  })),
+  on(actions.closeEditModal, (state) => ({ ...state, activeModal: null, productInModal: null })),
+  on(actions.openAddModal, (state, { modal }) => ({ ...state, activeModal: modal })),
+  on(actions.closeAddModal, (state) => ({ ...state, activeModal: null }))
 );
 
 export function productsReducer(state: ProductsState | undefined, action: Action) {

@@ -5,6 +5,8 @@ import * as carouselActions from './carousel.actions';
 export const initialState: CarouselState = {
   carouselItems: [],
   isLoading: false,
+  activeIndex: 0,
+  carouselWidth: 0,
 };
 
 const _carouselReducer = createReducer(
@@ -20,12 +22,17 @@ const _carouselReducer = createReducer(
   on(carouselActions.loadCarouselError, (state) => ({
     ...state,
     isLoading: false,
+  })),
+  on(carouselActions.moveCarouselRight, (state) => ({
+    ...state,
+    activeIndex: state.activeIndex + 1,
+  })),
+  on(carouselActions.moveCarouselLeft, (state) => ({
+    ...state,
+    activeIndex: state.activeIndex - 1,
   }))
 );
 
-export function carouselReducer(
-  state: CarouselState | undefined,
-  action: Action
-) {
+export function carouselReducer(state: CarouselState | undefined, action: Action) {
   return _carouselReducer(state, action);
 }

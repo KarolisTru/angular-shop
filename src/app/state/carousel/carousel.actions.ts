@@ -9,3 +9,5 @@ export const loadCarouselSuccess = createAction(
   }>()
 );
 export const loadCarouselError = createAction('[Carousel] Load Error');
+export const moveCarouselRight = createAction('[Carousel] Move Right');
+export const moveCarouselLeft = createAction('[Carousel] Move Left');
